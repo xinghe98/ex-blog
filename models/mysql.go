@@ -10,7 +10,7 @@ var DB *gorm.DB
 
 func ConnetMysql() *gorm.DB {
 	var err error
-	dsn := "root:xinghe@tcp(109.236.63.125:3306)/userinfo?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:xinghe@tcp(109.236.63.125:3306)/usersinfo?charset=utf8mb4&parseTime=True&loc=Local"
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)

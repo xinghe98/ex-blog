@@ -2,18 +2,24 @@ package models
 
 import "gorm.io/gorm"
 
-type Test struct {
+type User struct {
 	gorm.Model
-	Name string
-	Age  int64
-	Doc  *string
+	UserName string  `json:"username"`
+	Age      int64   `json:"age"`
+	PassWord string  `json:"password"`
+	Doc      *string `json:"doc"`
 }
 
-func CreateUser(test *Test) {
-	DB.Create(&test)
+func InitModel() {
+	DB.AutoMigrate(&User{})
 }
 
-func Findall() (all []*Test) {
+func CreateUser(user *User) {
+
+	DB.Create(&user)
+}
+
+func Findall() (all []*User) {
 	DB.Find(&all)
 	return all
 }
