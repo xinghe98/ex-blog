@@ -9,6 +9,7 @@ func UserRoute(r *gin.Engine) *gin.Engine {
 	user := r.Group("/api/user")
 	{
 		user.GET("ping", controller.Pong)
+		user.GET("get", controller.Find)
 	}
 	return r
 }
