@@ -10,7 +10,7 @@ import (
 func main() {
 	r := gin.Default()
 	models.ConnetMysql()
-	//models.InitModel()
+	models.InitModel()
 	r = routes.UserRoute(r)
 	r.Run(":3000")
 }
