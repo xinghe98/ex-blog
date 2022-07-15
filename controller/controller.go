@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 	"liandyuan.cn/api/models"
 	"liandyuan.cn/api/service"
 )
@@ -26,6 +27,8 @@ func Create(ctx *gin.Context) {
 		})
 		return
 	}
+	bytes, _ := bcrypt.GenerateFromPassword([]byte(user.PassWord), 14)
+	user.PassWord = string(bytes)
 	models.CreateUser(&user)
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 200,
