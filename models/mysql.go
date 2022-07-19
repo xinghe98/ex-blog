@@ -1,6 +1,9 @@
 package models
 
 import (
+	"fmt"
+
+	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	_ "gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -9,9 +12,15 @@ import (
 var DB *gorm.DB
 
 func ConnetMysql() *gorm.DB {
+	url := viper.GetString("mysql.url")
+	usename := viper.GetString("mysql.username")
+	password := viper.GetString("mysql.password")
+	fmt.Println(url, usename, password)
 	var err error
-	dsn := "root:xinghe@tcp(109.236.63.125:3306)/usersinfo?charset=utf8mb4&parseTime=True&loc=Local"
-	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	database := fmt.Sprintf("%s:%s@tcp%s?charset=utf8mb4&parseTime=True&loc=Local",
+		usename, password, url)
+	fmt.Println(database)
+	DB, err = gorm.Open(mysql.Open(database), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

@@ -84,3 +84,12 @@ func Updatepassword(ctx *gin.Context) {
 		"msg":  "修改成功",
 	})
 }
+
+// 客户查询用户信息
+func Getinfo(ctx *gin.Context) {
+	user, _ := ctx.Get("userinfo")
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 200,
+		"data": gin.H{"user": user},
+	})
+}
