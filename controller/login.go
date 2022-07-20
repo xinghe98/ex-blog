@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"liandyuan.cn/api/models"
-	"liandyuan.cn/api/service"
+	"liandyuan.cn/api/util"
 )
 
 func Login(ctx *gin.Context) {
@@ -30,7 +30,7 @@ func Login(ctx *gin.Context) {
 	}
 	//发放token
 
-	token, err := service.GenToken(user.UserName, user.ID)
+	token, err := util.GenToken(user.UserName, user.ID)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"code": 500,

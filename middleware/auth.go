@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"liandyuan.cn/api/models"
-	"liandyuan.cn/api/service"
+	"liandyuan.cn/api/util"
 )
 
 func Auth() gin.HandlerFunc {
@@ -22,7 +22,7 @@ func Auth() gin.HandlerFunc {
 			return
 		}
 		tokenstr = tokenstr[7:]
-		token, claims, err := service.ParseToken(tokenstr)
+		token, claims, err := util.ParseToken(tokenstr)
 		if err != nil || !token.Valid {
 			ctx.JSON(http.StatusUnauthorized, gin.H{
 				"code": 401,
