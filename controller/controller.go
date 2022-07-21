@@ -41,7 +41,7 @@ func DeleteUser(ctx *gin.Context) {
 
 // 更新用户信息
 func Updatepassword(ctx *gin.Context) {
-	key, ok := ctx.Params.Get("key")
+	postkey, ok := ctx.Params.Get("key")
 	if !ok {
 		ctx.JSON(http.StatusBadGateway, gin.H{
 			"code": 502,
@@ -49,8 +49,13 @@ func Updatepassword(ctx *gin.Context) {
 		})
 		return
 	}
+	key, _ := ctx.Get("key")
+	if key != postkey {
+		httpresp.Resp(ctx, http.StatusForbidden, 403, nil, "请求错误")
+		return
+	}
 	pwd := ctx.PostForm("password")
-	service.Updatepwd(key, pwd)
+	service.Updatepwd(postkey, pwd)
 	httpresp.Resp(ctx, http.StatusOK, 200, nil, "修改成功")
 }
 
