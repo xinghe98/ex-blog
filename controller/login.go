@@ -16,7 +16,7 @@ func Login(ctx *gin.Context) {
 	//验证数据
 	var user models.User
 	models.DB.Where("username=?", loguser.UserName).First(&user)
-	if user.ID == 0 {
+	if user.UserKey == "" {
 		ctx.JSON(http.StatusUnprocessableEntity, gin.H{"code": 422, "msg": "用户不存在"})
 		return
 	}

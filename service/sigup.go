@@ -2,6 +2,7 @@ package service
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -23,7 +24,7 @@ func Sigup(user *models.User, ctx *gin.Context) {
 	bytes, _ := bcrypt.GenerateFromPassword([]byte(user.PassWord), 14)
 	user.PassWord = string(bytes)
 	times := time.Now().Unix()
-	userid := util.MD5(string(times))
+	userid := util.MD5(strconv.FormatInt(times, 10))
 	user.UserKey = userid
 	err := CreateUser(user)
 	if err != nil {

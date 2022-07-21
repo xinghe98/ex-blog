@@ -4,6 +4,10 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
+	"strconv"
+	"time"
+
+	"liandyuan.cn/api/util"
 )
 
 func MD5(v string) string {
@@ -14,7 +18,12 @@ func MD5(v string) string {
 }
 
 func main() {
+	tm := time.Now().Unix()
+	times := strconv.FormatInt(tm, 10)
+	userid := util.MD5(times)
+	user := util.MD5(string(tm))
+	fmt.Println(userid)
+	fmt.Println(times)
+	fmt.Println(user)
 
-	a := MD5("1111111111111111")
-	fmt.Println(a)
 }

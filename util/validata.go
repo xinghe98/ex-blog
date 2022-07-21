@@ -14,7 +14,7 @@ func Valipassword(user *models.User) bool {
 
 func ValiUser(user *models.User) bool {
 	models.DB.Where("username = ?", user.UserName).First(&user)
-	if user.ID != 0 {
+	if user.UserKey != "" {
 		return true
 	}
 	return false

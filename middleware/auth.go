@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"liandyuan.cn/api/models"
 	"liandyuan.cn/api/util"
 )
 
@@ -31,11 +30,8 @@ func Auth() gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
-		userid := claims.ID
 		userkey := claims.UserKey
-		var user models.User
-		models.DB.First(&user, userid)
-		if user.ID == 0 {
+		if userkey == "" {
 			ctx.JSON(http.StatusUnauthorized, gin.H{
 				"code": 401,
 				"msg":  "权限不足",
@@ -43,7 +39,6 @@ func Auth() gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
-		ctx.Set("userinfo", user)
 		ctx.Set("key", userkey)
 	}
 }

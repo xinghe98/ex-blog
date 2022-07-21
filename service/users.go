@@ -21,7 +21,7 @@ func Findall() (all []*models.User) {
 //根据userkey删除用户
 func DeleteUser(key string) {
 	var user models.User
-	models.DB.Where("userkey=?", key).Delete(&user)
+	models.DB.Unscoped().Where("userkey=?", key).Delete(&user)
 }
 
 //根据id更新密码

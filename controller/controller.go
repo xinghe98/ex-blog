@@ -56,6 +56,8 @@ func Updatepassword(ctx *gin.Context) {
 
 // 客户查询用户信息
 func Getinfo(ctx *gin.Context) {
-	user, _ := ctx.Get("userinfo")
+	var user models.User
+	userkey, _ := ctx.Get("key")
+	models.DB.Where("userkey =?", userkey).Find(&user)
 	httpresp.Resp(ctx, http.StatusOK, 200, gin.H{"user": user}, "")
 }
