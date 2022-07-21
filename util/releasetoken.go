@@ -10,6 +10,7 @@ import (
 // 自定义需要加密的参数
 type Myclaims struct {
 	Username string `json:"username"`
+	UserKey  string `json:"userkey"`
 	ID       uint   `json:"id"`
 	jwt.RegisteredClaims
 }
@@ -17,9 +18,10 @@ type Myclaims struct {
 var Secret = []byte(viper.GetString("secret.key"))
 
 //生成token
-func GenToken(username string, id uint) (string, error) {
+func GenToken(username string, userkey string, id uint) (string, error) {
 	claims := Myclaims{
 		username,
+		userkey,
 		id,
 		jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour)), //设置token过期时间

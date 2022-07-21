@@ -15,7 +15,6 @@ func ConnetMysql() *gorm.DB {
 	url := viper.GetString("mysql.url")
 	usename := viper.GetString("mysql.username")
 	password := viper.GetString("mysql.password")
-	fmt.Println(url, usename, password)
 	var err error
 	database := fmt.Sprintf("%s:%s@tcp%s?charset=utf8mb4&parseTime=True&loc=Local",
 		usename, password, url)

@@ -18,13 +18,14 @@ func Findall() (all []*models.User) {
 	return all
 }
 
-//根据id删除用户
-func DeleteUser(id string) {
-	models.DB.Delete(&models.User{}, id)
+//根据userkey删除用户
+func DeleteUser(key string) {
+	var user models.User
+	models.DB.Where("userkey=?", key).Delete(&user)
 }
 
 //根据id更新密码
-func Updatepwd(id string, pwd string) {
+func Updatepwd(key string, pwd string) {
 	bytes, _ := bcrypt.GenerateFromPassword([]byte(pwd), 14)
-	models.DB.Model(&models.User{}).Where("id=?", id).Update("password", string(bytes))
+	models.DB.Model(&models.User{}).Where("userkey=?", key).Update("password", string(bytes))
 }

@@ -16,7 +16,7 @@ func Auth() gin.HandlerFunc {
 		if tokenstr == "" || !strings.HasPrefix(tokenstr, "Bearer") {
 			ctx.JSON(http.StatusUnauthorized, gin.H{
 				"code": 401,
-				"msg":  "权限不足",
+				"msg":  "请先登录",
 			})
 			ctx.Abort()
 			return
@@ -24,14 +24,15 @@ func Auth() gin.HandlerFunc {
 		tokenstr = tokenstr[7:]
 		token, claims, err := util.ParseToken(tokenstr)
 		if err != nil || !token.Valid {
-			ctx.JSON(http.StatusUnauthorized, gin.H{
-				"code": 401,
+			ctx.JSON(http.StatusForbidden, gin.H{
+				"code": 403,
 				"msg":  "权限不足",
 			})
 			ctx.Abort()
 			return
 		}
 		userid := claims.ID
+		userkey := claims.UserKey
 		var user models.User
 		models.DB.First(&user, userid)
 		if user.ID == 0 {
@@ -43,5 +44,6 @@ func Auth() gin.HandlerFunc {
 			return
 		}
 		ctx.Set("userinfo", user)
+		ctx.Set("key", userkey)
 	}
 }

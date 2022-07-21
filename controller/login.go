@@ -30,7 +30,7 @@ func Login(ctx *gin.Context) {
 	}
 	//发放token
 
-	token, err := util.GenToken(user.UserName, user.ID)
+	token, err := util.GenToken(user.UserName, user.UserKey, user.ID)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"code": 500,

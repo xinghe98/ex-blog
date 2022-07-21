@@ -24,7 +24,7 @@ func Find(ctx *gin.Context) {
 
 //删除用户
 func DeleteUser(ctx *gin.Context) {
-	id, ok := ctx.Params.Get("id")
+	key, ok := ctx.Params.Get("key")
 	if !ok {
 		ctx.JSON(http.StatusBadGateway, gin.H{
 			"code": 502,
@@ -32,7 +32,7 @@ func DeleteUser(ctx *gin.Context) {
 		})
 		return
 	}
-	service.DeleteUser(id)
+	service.DeleteUser(key)
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 200,
 		"msg":  "删除成功",
@@ -41,7 +41,7 @@ func DeleteUser(ctx *gin.Context) {
 
 // 更新用户信息
 func Updatepassword(ctx *gin.Context) {
-	id, ok := ctx.Params.Get("id")
+	key, ok := ctx.Params.Get("key")
 	if !ok {
 		ctx.JSON(http.StatusBadGateway, gin.H{
 			"code": 502,
@@ -50,7 +50,7 @@ func Updatepassword(ctx *gin.Context) {
 		return
 	}
 	pwd := ctx.PostForm("password")
-	service.Updatepwd(id, pwd)
+	service.Updatepwd(key, pwd)
 	httpresp.Resp(ctx, http.StatusOK, 200, nil, "修改成功")
 }
 
