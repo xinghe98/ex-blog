@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"golang.org/x/crypto/bcrypt"
+	"liandyuan.cn/api/httpresp"
 	"liandyuan.cn/api/models"
 	"liandyuan.cn/api/service"
 )
@@ -18,8 +18,8 @@ func Create(ctx *gin.Context) {
 
 // 查询所有用户
 func Find(ctx *gin.Context) {
-	all := models.Findall()
-	ctx.JSON(http.StatusOK, all)
+	all := service.Findall()
+	httpresp.Resp(ctx, http.StatusOK, 200, all, "查询成功")
 }
 
 //删除用户
@@ -32,7 +32,7 @@ func DeleteUser(ctx *gin.Context) {
 		})
 		return
 	}
-	models.DeleteUser(id)
+	service.DeleteUser(id)
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 200,
 		"msg":  "删除成功",
@@ -50,19 +50,12 @@ func Updatepassword(ctx *gin.Context) {
 		return
 	}
 	pwd := ctx.PostForm("password")
-	bytes, _ := bcrypt.GenerateFromPassword([]byte(pwd), 14)
-	models.Updatepwd(id, string(bytes))
-	ctx.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"msg":  "修改成功",
-	})
+	service.Updatepwd(id, pwd)
+	httpresp.Resp(ctx, http.StatusOK, 200, nil, "修改成功")
 }
 
 // 客户查询用户信息
 func Getinfo(ctx *gin.Context) {
 	user, _ := ctx.Get("userinfo")
-	ctx.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"data": gin.H{"user": user},
-	})
+	httpresp.Resp(ctx, http.StatusOK, 200, gin.H{"user": user}, "")
 }

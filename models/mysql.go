@@ -19,10 +19,14 @@ func ConnetMysql() *gorm.DB {
 	var err error
 	database := fmt.Sprintf("%s:%s@tcp%s?charset=utf8mb4&parseTime=True&loc=Local",
 		usename, password, url)
-	fmt.Println(database)
 	DB, err = gorm.Open(mysql.Open(database), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
 	return DB
+}
+
+//在数据库中建立对应的表结构
+func InitModel() {
+	DB.AutoMigrate(&User{})
 }
