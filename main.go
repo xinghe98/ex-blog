@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	_ "gorm.io/driver/mysql"
+	"liandyuan.cn/api/middleware"
 	"liandyuan.cn/api/models"
 	"liandyuan.cn/api/routes"
 )
@@ -26,6 +27,7 @@ func InitConfig() {
 func main() {
 	InitConfig()
 	r := gin.Default()
+	r.Use(middleware.Cors())
 	models.ConnetMysql()
 	models.InitModel()
 	r = routes.RegistRoutes(r)

@@ -23,6 +23,7 @@ func Sigup(user *models.User, ctx *gin.Context) {
 	}
 	bytes, _ := bcrypt.GenerateFromPassword([]byte(user.PassWord), 14)
 	user.PassWord = string(bytes)
+	user.UserKey = ""
 	times := time.Now().Unix()
 	userid := util.MD5(strconv.FormatInt(times, 10))
 	user.UserKey = userid
