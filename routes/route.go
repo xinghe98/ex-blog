@@ -13,6 +13,9 @@ func RegistRoutes(r *gin.Engine) *gin.Engine {
 		root.GET("user", controller.Find)               //获取所有用户信息
 		root.DELETE("user/:key", controller.DeleteUser) //根据id删除用户
 		root.GET("user/profile", controller.Getinfo)    //获取某一个用户的信息
+		root.POST("/uploads", controller.Upload)
+		root.GET("/uploads/img", controller.Findimg)
+		root.DELETE("/uploads/img/:uid", controller.Delimg)
 	}
 	user := r.Group("/api/")
 	{

@@ -27,5 +27,5 @@ func ConnetMysql() *gorm.DB {
 
 //在数据库中建立对应的表结构
 func InitModel() {
-	DB.AutoMigrate(&User{})
+	DB.AutoMigrate(&User{}, &Imageinfo{})
 }
