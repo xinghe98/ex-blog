@@ -14,7 +14,7 @@ func Uploadimg(c *gin.Context) bool {
 	for _, file := range files {
 		uuid := uuid.New()
 		key := uuid.String()
-		dst := fmt.Sprintf("../vue-ft/public/uploads/%s", key)
+		dst := fmt.Sprintf("../vue-ft/public/uploads/%s.jpg", key)
 		// 上传文件到指定的目录
 		err := c.SaveUploadedFile(file, dst)
 		if err != nil {
@@ -24,7 +24,7 @@ func Uploadimg(c *gin.Context) bool {
 		if key, _ := c.Get("key"); key == "root" {
 			index = 0
 		}
-		imginfo := models.Imageinfo{Uid: key, Imgname: file.Filename, Imgurl: fmt.Sprintf("/uploads/%s", key), Index: index}
+		imginfo := models.Imageinfo{Uid: key, Imgname: file.Filename, Imgurl: fmt.Sprintf("/uploads/%s.jpg", key), Index: index}
 		models.DB.Create(&imginfo)
 	}
 	return true
