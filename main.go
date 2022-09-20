@@ -9,7 +9,7 @@ import (
 	_ "gorm.io/driver/mysql"
 	"liandyuan.cn/api/middleware"
 	"liandyuan.cn/api/models"
-	"liandyuan.cn/api/routes"
+	"liandyuan.cn/api/router"
 )
 
 func InitConfig() {
@@ -30,6 +30,6 @@ func main() {
 	r.Use(middleware.Cors())
 	models.ConnetMysql()
 	models.InitModel()
-	r = routes.RegistRoutes(r)
+	r = router.RegistRoutes(r)
 	r.Run(":3000")
 }

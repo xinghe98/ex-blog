@@ -1,0 +1,7 @@
+mysql:
+  url : "(124.71.70.42:3307)/myproject" 
+  username: root
+  password: xinghe
+
+secret:
+  key: dalksfle;wajiw
